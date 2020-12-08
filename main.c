@@ -17,8 +17,6 @@ long long convert_leaf(char* expr, int start, int end);
 
 long long convert_non_para(char* expr, int start, int i);
 
-bool is_arithmetic_operator(char op);
-
 int determine_operator(char op);
 
 long long string_convert(char *num) {
@@ -67,7 +65,7 @@ long long split(char *expr, int start, int end) {
         i++;
     }
     while (i < end) {
-        if (is_arithmetic_operator(expr[i]) && numOpen - numClose == 1) {
+        if (determine_operator(expr[i]) != 4 && numOpen - numClose == 1) {
             break;
         }
         if (expr[i] == '(') {
@@ -96,21 +94,6 @@ long long split(char *expr, int start, int end) {
     } else {
         // we encountered a closing parentheses, meaning we reached the end of this node
         return split(expr, start + 1, end - 1);
-    }
-}
-
-bool is_arithmetic_operator(char op) {
-    if (op == '+') {
-        return true;
-    } else if (op == '-') {
-        return true;
-    } else if (op == '*') {
-        return true;
-    } else if (op == '/') {
-        return true;
-    } else {
-        // this should be a closing parentheses
-        return false;
     }
 }
 
