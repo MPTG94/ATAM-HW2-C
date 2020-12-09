@@ -27,14 +27,13 @@ int main() {
     // in the assembler function we will read the string length from STDIN, and send the full length to the first call to split function
     call_split("(1)", 3);
     call_split("(-1)", 4);
-    // returns wrong result
     call_split("(1--1)", 5);
     call_split("(1-(-1))", 8);
-    // returns wrong result rn
     call_split("((2+3)*2)", 9);
-    // causes an infinite loop rn
     call_split("((1*2)/(3-5))", 13);
     call_split("(1+(1+(1+(1+1))))", 17);
+    call_split("((((1+1)+1)+1)+1)", 17);
+    call_split("(((1*2)+(3*4))*(5+6))", 21);
     return 0;
 }
 
@@ -77,9 +76,9 @@ long long split(char *expr, int start, int end) {
         i++;
     }
 
-    if (i == end) {
-        convert_non_para(expr, start, i);
-    }
+//    if (i == end) {
+//        return convert_non_para(expr, start, i);
+//    }
     // if we reached this point, it means we met a character that divides the arithmetic expression (could also be ')')
     int op = determine_operator(expr[i]);
 
